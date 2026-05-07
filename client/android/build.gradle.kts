@@ -10,7 +10,7 @@ allprojects {
 
 val newBuildDir: Directory =
     rootProject.layout.buildDirectory
-        .dir("../../build")
+        .dir("C:/Users/HCY/webchat-build")
         .get()
 rootProject.layout.buildDirectory.value(newBuildDir)
 
