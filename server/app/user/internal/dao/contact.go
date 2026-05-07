@@ -62,7 +62,7 @@ func (d *ContactDao) RejectRequest(ctx context.Context, requestId int64) error {
 func (d *ContactDao) List(ctx context.Context, userId int64) ([]*ContactRow, error) {
 	var rows []*ContactRow
 	err := d.conn.QueryRowsCtx(ctx, &rows,
-		`SELECT c.contact_id, COALESCE(c.remark, u.nickname) AS nickname, u.avatar, COALESCE(c.remark, '') AS remark,
+		`SELECT c.contact_id, COALESCE(NULLIF(c.remark, ''), u.nickname) AS nickname, u.avatar, COALESCE(c.remark, '') AS remark,
 		        COALESCE(c.tag, '') AS tag, c.is_blocked
 		 FROM contacts c JOIN users u ON c.contact_id = u.id WHERE c.user_id = ?`, userId)
 	return rows, err
