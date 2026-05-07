@@ -82,12 +82,12 @@ export PATH="$JAVA_HOME/bin:$ANDROID_HOME/platform-tools:$PATH"
 | 任务 | 内容 | 状态 |
 |------|------|------|
 | C1 | 初始化 Flutter 项目 | ✅ 已完成 |
-| C2 | core — 网络层 + Token 管理 + 主题 | ⬜ 未开始 |
-| C3 | Auth Feature — 登录/注册 | ⬜ 未开始 |
-| C4 | 首页 Tab 骨架 | ⬜ 未开始 |
-| C5 | 会话列表页面 | ⬜ 未开始 |
-| C6 | 聊天页面 (ChatPage) | ⬜ 未开始 |
-| C7 | 通讯录页面 | ⬜ 未开始 |
+| C2 | core — 网络层 + Token 管理 + 主题 | ✅ 已完成 |
+| C3 | Auth Feature — 登录/注册 | ✅ 已完成 |
+| C4 | 首页 Tab 骨架 | ✅ 已完成 |
+| C5 | 会话列表页面 | ✅ 已完成 |
+| C6 | 聊天页面 (ChatPage) | ✅ 已完成 |
+| C7 | 通讯录页面 | ✅ 已完成 |
 
 ---
 
