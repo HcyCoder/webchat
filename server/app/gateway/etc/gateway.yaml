@@ -2,13 +2,25 @@ Name: gateway
 Host: 0.0.0.0
 Port: 8080
 UserRpc:
-  Target: localhost:50051
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: user.rpc
 ChatRpc:
-  Target: localhost:50052
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: chat.rpc
 GroupRpc:
-  Target: localhost:50053
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: group.rpc
 MediaRpc:
-  Target: localhost:50054
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: media.rpc
 Cache:
   Host: 127.0.0.1:6379
   Type: node
