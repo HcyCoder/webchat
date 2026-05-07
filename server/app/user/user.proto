@@ -1,0 +1,105 @@
+syntax = "proto3";
+
+package user;
+option go_package = "./user";
+
+service User {
+  rpc register(RegisterRequest) returns (RegisterResponse);
+  rpc login(LoginRequest) returns (LoginResponse);
+  rpc getProfile(GetProfileRequest) returns (UserInfo);
+  rpc updateProfile(UpdateProfileRequest) returns (UserInfo);
+  rpc addContact(AddContactRequest) returns (Empty);
+  rpc acceptFriendRequest(AcceptFriendRequestRequest) returns (Empty);
+  rpc rejectFriendRequest(RejectFriendRequestRequest) returns (Empty);
+  rpc listContacts(ListContactsRequest) returns (ListContactsResponse);
+  rpc searchUser(SearchUserRequest) returns (SearchUserResponse);
+  rpc getUserById(GetUserByIdRequest) returns (UserInfo);
+}
+
+message Empty {}
+
+message UserInfo {
+  string id = 1;
+  string phone = 2;
+  string nickname = 3;
+  string avatar = 4;
+  int32 gender = 5;
+  string region = 6;
+  string signature = 7;
+  int64 created_at = 8;
+}
+
+message RegisterRequest {
+  string phone = 1;
+  string password = 2;
+  string nickname = 3;
+}
+
+message RegisterResponse {
+  string user_id = 1;
+}
+
+message LoginRequest {
+  string phone = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string user_id = 1;
+}
+
+message GetProfileRequest {
+  string user_id = 1;
+}
+
+message GetUserByIdRequest {
+  string user_id = 1;
+}
+
+message UpdateProfileRequest {
+  string user_id = 1;
+  string nickname = 2;
+  string avatar = 3;
+  int32 gender = 4;
+  string region = 5;
+  string signature = 6;
+}
+
+message AddContactRequest {
+  string from_user = 1;
+  string to_user = 2;
+  string message = 3;
+}
+
+message AcceptFriendRequestRequest {
+  string request_id = 1;
+}
+
+message RejectFriendRequestRequest {
+  string request_id = 1;
+}
+
+message ListContactsRequest {
+  string user_id = 1;
+}
+
+message ListContactsResponse {
+  repeated ContactInfo contacts = 1;
+}
+
+message ContactInfo {
+  string user_id = 1;
+  string nickname = 2;
+  string avatar = 3;
+  string remark = 4;
+  string tag = 5;
+  bool is_blocked = 6;
+}
+
+message SearchUserRequest {
+  string keyword = 1;
+}
+
+message SearchUserResponse {
+  repeated UserInfo users = 1;
+}

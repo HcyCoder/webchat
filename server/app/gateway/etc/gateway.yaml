@@ -1,0 +1,25 @@
+Name: gateway
+Host: 0.0.0.0
+Port: 8080
+UserRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: user.rpc
+ChatRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: chat.rpc
+GroupRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: group.rpc
+MediaRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:2379
+    Key: media.rpc
+Redis:
+  Addr: 127.0.0.1:6379

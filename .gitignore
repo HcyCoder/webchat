@@ -1,0 +1,19 @@
+# Build output
+**/gen/
+
+# IDE
+.idea/
+.vscode/
+
+# Flutter
+client/.dart_tool/
+client/build/
+client/.packages
+client/.flutter-plugins*
+
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib

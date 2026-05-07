@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package group;
+option go_package = "./group";
+
+service Group {
+  rpc createGroup(CreateGroupRequest) returns (GroupInfo);
+  rpc getGroup(GetGroupRequest) returns (GroupInfo);
+  rpc addMember(AddMemberRequest) returns (Empty);
+  rpc removeMember(RemoveMemberRequest) returns (Empty);
+  rpc listMembers(ListMembersRequest) returns (ListMembersResponse);
+}
+
+message Empty {}
+
+message GroupInfo {
+  string id = 1;
+  string name = 2;
+  string avatar = 3;
+  string owner_id = 4;
+  string announcement = 5;
+  int32 member_count = 6;
+  int32 max_members = 7;
+  int64 created_at = 8;
+}
+
+message GroupMember {
+  string user_id = 1;
+  string role = 2;
+  string alias = 3;
+  bool is_muted = 4;
+  int64 joined_at = 5;
+}
+
+message CreateGroupRequest {
+  string name = 1;
+  string owner_id = 2;
+  repeated string member_ids = 3;
+}
+
+message GetGroupRequest {
+  string group_id = 1;
+}
+
+message AddMemberRequest {
+  string group_id = 1;
+  repeated string user_ids = 2;
+}
+
+message RemoveMemberRequest {
+  string group_id = 1;
+  string user_id = 2;
+}
+
+message ListMembersRequest {
+  string group_id = 1;
+}
+
+message ListMembersResponse {
+  repeated GroupMember members = 1;
+}

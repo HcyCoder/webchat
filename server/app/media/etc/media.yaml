@@ -1,0 +1,11 @@
+Name: media.rpc
+ListenOn: 0.0.0.0:50054
+Etcd:
+  Hosts:
+    - 127.0.0.1:2379
+  Key: media.rpc
+Minio:
+  Endpoint: 127.0.0.1:9000
+  AccessKey: minioadmin
+  SecretKey: minioadmin
+  Bucket: webchat-media

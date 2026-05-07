@@ -1,0 +1,12 @@
+Name: chat.rpc
+ListenOn: 0.0.0.0:50052
+Etcd:
+  Hosts:
+    - 127.0.0.1:2379
+  Key: chat.rpc
+Mysql:
+  DataSource: root:root123@tcp(127.0.0.1:3306)/webchat_chat?charset=utf8mb4&parseTime=true
+Redis:
+  Addr: 127.0.0.1:6379
+WebSocket:
+  ListenOn: 0.0.0.0:8081

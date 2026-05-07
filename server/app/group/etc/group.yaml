@@ -1,0 +1,8 @@
+Name: group.rpc
+ListenOn: 0.0.0.0:50053
+Etcd:
+  Hosts:
+    - 127.0.0.1:2379
+  Key: group.rpc
+Mysql:
+  DataSource: root:root123@tcp(127.0.0.1:3306)/webchat_group?charset=utf8mb4&parseTime=true

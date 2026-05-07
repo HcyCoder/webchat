@@ -1,0 +1,170 @@
+syntax = "v1"
+
+type (
+	LoginRequest {
+		Phone    string `json:"phone"`
+		Password string `json:"password"`
+	}
+	LoginResponse {
+		UserId string `json:"user_id"`
+		Token  string `json:"token"`
+	}
+	RegisterRequest {
+		Phone    string `json:"phone"`
+		Password string `json:"password"`
+		Nickname string `json:"nickname"`
+	}
+	RegisterResponse {
+		UserId string `json:"user_id"`
+		Token  string `json:"token"`
+	}
+	UserInfo {
+		Id        string `json:"id"`
+		Phone     string `json:"phone"`
+		Nickname  string `json:"nickname"`
+		Avatar    string `json:"avatar"`
+		Gender    int    `json:"gender"`
+		Region    string `json:"region"`
+		Signature string `json:"signature"`
+	}
+	UpdateUserRequest {
+		Nickname  string `json:"nickname,optional"`
+		Avatar    string `json:"avatar,optional"`
+		Gender    int    `json:"gender,optional"`
+		Region    string `json:"region,optional"`
+		Signature string `json:"signature,optional"`
+	}
+	ContactInfo {
+		UserId    string `json:"user_id"`
+		Nickname  string `json:"nickname"`
+		Avatar    string `json:"avatar"`
+		Remark    string `json:"remark"`
+		Tag       string `json:"tag"`
+		IsBlocked bool   `json:"is_blocked"`
+	}
+	ListContactsResponse {
+		Contacts []ContactInfo `json:"contacts"`
+	}
+	AddContactRequest {
+		ToUser  string `json:"to_user"`
+		Message string `json:"message"`
+	}
+	HandleFriendReqRequest {
+		Action string `json:"action"`
+	}
+	Conversation {
+		Id           string `json:"id"`
+		ChatType     string `json:"chat_type"`
+		TargetId     string `json:"target_id"`
+		TargetName   string `json:"target_name"`
+		TargetAvatar string `json:"target_avatar"`
+		LastContent  string `json:"last_content"`
+		UnreadCount  int    `json:"unread_count"`
+		IsPinned     bool   `json:"is_pinned"`
+		IsMuted      bool   `json:"is_muted"`
+		UpdatedAt    int64  `json:"updated_at"`
+	}
+	GetConversationsResponse {
+		Conversations []Conversation `json:"conversations"`
+	}
+	Message {
+		Id         string `json:"id"`
+		ChatType   string `json:"chat_type"`
+		FromUser   string `json:"from_user"`
+		ToId       string `json:"to_id"`
+		MsgType    string `json:"msg_type"`
+		Content    string `json:"content"`
+		IsRecalled bool   `json:"is_recalled"`
+		CreatedAt  int64  `json:"created_at"`
+	}
+	GetMessagesResponse {
+		Messages []Message `json:"messages"`
+	}
+	SendMsgRequest {
+		ChatType string `json:"chat_type"`
+		ToId     string `json:"to_id"`
+		MsgType  string `json:"msg_type"`
+		Content  string `json:"content"`
+	}
+	CreateGroupRequest {
+		Name      string   `json:"name"`
+		MemberIds []string `json:"member_ids"`
+	}
+	GroupInfo {
+		Id           string `json:"id"`
+		Name         string `json:"name"`
+		Avatar       string `json:"avatar"`
+		OwnerId      string `json:"owner_id"`
+		Announcement string `json:"announcement"`
+		MemberCount  int    `json:"member_count"`
+	}
+	AddMemberRequest {
+		UserIds []string `json:"user_ids"`
+	}
+	UploadURLResponse {
+		UploadUrl string `json:"upload_url"`
+		FileId    string `json:"file_id"`
+		ExpiresIn int64  `json:"expires_in"`
+	}
+	FileURLResponse {
+		Url string `json:"url"`
+	}
+	Empty  {}
+)
+
+@server (
+	prefix: /api/v1
+)
+service gateway {
+	@handler login
+	post /auth/login (LoginRequest) returns (LoginResponse)
+
+	@handler register
+	post /auth/register (RegisterRequest) returns (RegisterResponse)
+
+	@handler refreshToken
+	post /auth/refresh returns (LoginResponse)
+
+	@handler getUser
+	get /users/me returns (UserInfo)
+
+	@handler updateUser
+	put /users/me (UpdateUserRequest) returns (UserInfo)
+
+	@handler getUserById
+	get /users/:id returns (UserInfo)
+
+	@handler listContacts
+	get /contacts returns (ListContactsResponse)
+
+	@handler addContact
+	post /contacts/request (AddContactRequest) returns (Empty)
+
+	@handler handleFriendReq
+	put /contacts/request/:id (HandleFriendReqRequest) returns (Empty)
+
+	@handler getConversations
+	get /conversations returns (GetConversationsResponse)
+
+	@handler getMessages
+	get /messages/:conv_id returns (GetMessagesResponse)
+
+	@handler sendMessage
+	post /messages/send (SendMsgRequest) returns (Message)
+
+	@handler createGroup
+	post /groups (CreateGroupRequest) returns (GroupInfo)
+
+	@handler getGroup
+	get /groups/:id returns (GroupInfo)
+
+	@handler addGroupMember
+	post /groups/:id/members (AddMemberRequest) returns (Empty)
+
+	@handler getUploadURL
+	post /files/upload returns (UploadURLResponse)
+
+	@handler getFileURL
+	get /files/:id/url returns (FileURLResponse)
+}
+
