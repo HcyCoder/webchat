@@ -101,7 +101,31 @@ export PATH="$JAVA_HOME/bin:$ANDROID_HOME/platform-tools:$PATH"
 
 ---
 
-## 四、常用命令速查
+## 四、Flutter 运行（WSL → Windows 模拟器）
+
+每次开发前需要以下步骤：
+
+**1. Windows 侧**（管理员 cmd）：
+```cmd
+netsh interface portproxy add v4tov4 listenport=15555 listenaddress=0.0.0.0 connectport=5555 connectaddress=127.0.0.1
+adb kill-server
+adb -a -P 5037 nodaemon server
+```
+
+**2. WSL 侧**：
+```bash
+export PATH="/home/hcy/flutter/bin:$PATH"
+export ANDROID_HOME=/home/hcy/android-sdk
+export JAVA_HOME=/home/hcy/.local/jdk
+export PATH="$JAVA_HOME/bin:$ANDROID_HOME/platform-tools:$PATH"
+flutter run -d emulator-5554
+```
+
+> adb wrapper 已配置好（`~/android-sdk/platform-tools/adb`），通过 cmd.exe 调用 Windows 原生 adb。
+
+---
+
+## 五、常用命令速查
 
 ```bash
 # 中间件
