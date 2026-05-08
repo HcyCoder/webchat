@@ -6,17 +6,22 @@ $services = @(
     @{Name="gateway"; Port="8080";  Exe="app\gateway\gateway.go";  Conf="app\gateway\etc\gateway.yaml"}
 )
 
-Write-Host "Starting all backend services..." -ForegroundColor Green
+$dir = Resolve-Path $PSScriptRoot
+$tabCmds = @()
 
-Push-Location $PSScriptRoot
-
-foreach ($svc in $services) {
-    $title = "webchat-$($svc.Name) :$($svc.Port)"
-    Start-Process pwsh -ArgumentList "-NoExit", "-Command",
-        "Write-Host '[$($svc.Name)] listening on :$($svc.Port)' -ForegroundColor Cyan; go run $($svc.Exe) -f $($svc.Conf)" `
-        -WindowStyle Normal
-    Write-Host "  started $title"
+for ($i = 0; $i -lt $services.Count; $i++) {
+    $svc = $services[$i]
+    $cmd = "Write-Host '[$($svc.Name)] listening on :$($svc.Port)' -ForegroundColor Cyan; go run $($svc.Exe) -f $($svc.Conf)"
+    if ($i -eq 0) {
+        $tabCmds += "--title webchat-$($svc.Name) pwsh -NoExit -Command `"$cmd`""
+    } else {
+        $tabCmds += "new-tab --title webchat-$($svc.Name) pwsh -NoExit -Command `"$cmd`""
+    }
 }
 
-Pop-Location
-Write-Host "done. close each window to stop the service." -ForegroundColor Green
+$args = $tabCmds -join " ; "
+$fullCmd = "wt -d `"$dir`" $args"
+
+Write-Host "Starting all backend services in Windows Terminal..." -ForegroundColor Green
+Invoke-Expression $fullCmd
+Write-Host "done." -ForegroundColor Green
