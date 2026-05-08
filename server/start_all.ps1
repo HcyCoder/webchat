@@ -17,6 +17,7 @@ for ($i = 0; $i -lt $services.Count; $i++) {
     $runner = Join-Path $tmpDir "run_$($svc.Name).ps1"
 
 @"
+Set-Location "$scriptDir"
 Write-Host "[$($svc.Name)] listening on :$($svc.Port)" -ForegroundColor Cyan
 go run $($svc.Exe) -f $($svc.Conf)
 "@ | Set-Content -Path $runner -Encoding UTF8
