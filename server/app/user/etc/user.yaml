@@ -7,4 +7,6 @@ Etcd:
 Mysql:
   DataSource: root:root123@tcp(127.0.0.1:3306)/webchat_user?charset=utf8mb4&parseTime=true
 Redis:
-  Addr: 127.0.0.1:6379
+  Host: 127.0.0.1:6379
+  Type: node
+  Key: webchat

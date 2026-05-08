@@ -11,7 +11,7 @@ type Config struct {
 	ChatRpc  zrpc.RpcClientConf
 	GroupRpc zrpc.RpcClientConf
 	MediaRpc zrpc.RpcClientConf
-	Redis    struct {
-		Addr string
+	Cache    struct {
+		Host string
 	}
 }

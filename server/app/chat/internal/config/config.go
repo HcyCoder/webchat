@@ -7,9 +7,6 @@ type Config struct {
 	Mysql struct {
 		DataSource string
 	}
-	Redis struct {
-		Addr string
-	}
 	WebSocket struct {
 		ListenOn string
 	}

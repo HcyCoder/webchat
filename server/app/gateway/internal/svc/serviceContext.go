@@ -21,7 +21,7 @@ type ServiceContext struct {
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
-	rdb := redis.NewClient(&redis.Options{Addr: c.Redis.Addr})
+	rdb := redis.NewClient(&redis.Options{Addr: c.Cache.Host})
 	return &ServiceContext{
 		Config:       c,
 		UserRpc:      userClient.NewUser(zrpc.MustNewClient(c.UserRpc)),

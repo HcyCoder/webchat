@@ -19,7 +19,7 @@ type ServiceContext struct {
 
 func NewServiceContext(c config.Config) *ServiceContext {
 	conn := mysql.New(c.Mysql.DataSource)
-	rdb := redis.NewClient(&redis.Options{Addr: c.Redis.Addr})
+	rdb := redis.NewClient(&redis.Options{Addr: c.Redis.Host})
 	return &ServiceContext{
 		Config:          c,
 		MessageDao:      dao.NewMessageDao(conn),
